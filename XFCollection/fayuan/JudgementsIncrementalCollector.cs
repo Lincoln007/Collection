@@ -4,9 +4,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using X.CommLib.Net.WebRequestHelper;
 using X.GlodEyes.Collectors;
-using XFCollection.fayuan;
 
-namespace XFCollection.bin.fayuan
+namespace XFCollection.fayuan
 {
     /// <summary>
     /// 增量

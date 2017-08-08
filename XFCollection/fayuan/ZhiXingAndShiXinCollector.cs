@@ -202,7 +202,7 @@ namespace XFCollection.fayuan
             string html = string.Empty;
             if (urlType == UrlType.ZhiXing)
             {
-                code = tesseractDemo.GetValidateCodeByUrl(_zhixingCaptchaUrl);
+                code = tesseractDemo.GetValidateCodeByUrlExtend(_zhixingCaptchaUrl);
                 cookies = tesseractDemo.Cookies;
                 //这部分cookie要去掉才能显示正确的内容
                 cookies = cookies.Replace(";Path=/search", "");
@@ -222,7 +222,7 @@ namespace XFCollection.fayuan
 
 
 
-                code = tesseractDemo.GetValidateCodeByUrl(_shixinCaptchaUrl);
+                code = tesseractDemo.GetValidateCodeByUrlExtend(_shixinCaptchaUrl);
                 cookies = tesseractDemo.Cookies;
                 var times = 1;
                 while (string.IsNullOrEmpty(cookies)||string.IsNullOrEmpty(code))

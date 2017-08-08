@@ -24,7 +24,7 @@ namespace XFCollection.JingDong
         internal static void Test()
         {
             //123736
-            var parameter = new NormalParameter { Keyword = @"41078" };
+            var parameter = new NormalParameter {Keyword = @"41078" };
             TestHelp<JDShopDetailCollector>(parameter, 10);
         }
 
@@ -65,7 +65,7 @@ namespace XFCollection.JingDong
         protected override string InitFirstUrl(NormalParameter param)
         {
             _shopId = param.Keyword;
-            if (_shopId.Equals(""))
+            if(_shopId.Equals(""))
                 throw new Exception("传入的ShopId为空，请检查！");
             return $"http://mall.jd.com/shopLevel-{param.Keyword}.html";
         }
@@ -288,14 +288,14 @@ namespace XFCollection.JingDong
 
             IList<string> value = (from Match match in matchs select match.Value).ToList();
 
-            if (value.Count != key.Count)
+            if(value.Count!=key.Count)
                 throw new Exception("商品信息不匹配！");
 
 
             Dictionary<string, string> totalNumDic = new Dictionary<string, string>();
 
             for (int i = 0; i < key.Count; i++)
-                totalNumDic.Add(key[i], value[i]);
+                totalNumDic.Add(key[i],value[i]);
 
             return totalNumDic;
 
@@ -389,7 +389,7 @@ namespace XFCollection.JingDong
         /// <returns></returns>
         public IDictionary<string, string> GetShopService(string htmlString)
         {
-            IDictionary<string, string> dic = new Dictionary<string, string>();
+            IDictionary<string,string> dic = new Dictionary<string, string>();
 
             //先解析出优于还是劣于
             var matchs = Regex.Matches(htmlString, @"(?<=<span class=""result"">[\s]*)[\S]*?(?=[\s]*</span>)");
@@ -417,13 +417,13 @@ namespace XFCollection.JingDong
                 var comment = listComment[i];
                 var name = listName[i];
 
-                if ((i + 1) % 2 == 0)
+                if ((i + 1)%2 == 0)
                 {
-                    var compare = listCompare[i / 2];
+                    var compare = listCompare[i/2];
                     if (compare.Equals("优于"))
-                        dic.Add(name, (comment.Equals("h") || comment.Equals("%")) ? $"{comment}" : $"+{comment}");
-                    else if (compare.Equals("劣于"))
-                        dic.Add(name, (comment.Equals("h") || comment.Equals("%")) ? $"{comment}" : $"-{comment}");
+                        dic.Add(name, (comment.Equals("h")||comment.Equals("%"))? $"{comment}":$"+{comment}");
+                    else if(compare.Equals("劣于"))
+                        dic.Add(name, (comment.Equals("h") || comment.Equals("%"))?$"{comment}":$"-{comment}");
                     else
                         dic.Add(name, $"{comment}");
                 }
@@ -443,9 +443,9 @@ namespace XFCollection.JingDong
         /// <returns></returns>
         public IDictionary<string, string> GetShopComment(string htmlString)
         {
-            //#if DEBUG
-            //            MessageBox.Show("test");
-            //#endif
+//#if DEBUG
+//            MessageBox.Show("test");
+//#endif
             IDictionary<string, string> dic = new Dictionary<string, string>();
 
 
@@ -511,16 +511,16 @@ namespace XFCollection.JingDong
             for (var i = 0; i < listKey.Count; i++)
             {
                 //偶数索引
-                if ((i + 1) % 2 == 0)
+                if ((i + 1)%2 == 0)
                 {
 
                     //第一种情况 分数为- 
-                    if (listScore[(i + 1) / 2 - 1].Equals("-"))
+                    if (listScore[(i+1)/2-1].Equals("-"))
                     {
                         dic.Add(listKey[i], "暂无评分");
                     }
                     //第二种情况 全部为空字符串
-                    else if (listScore[(i + 1) / 2 - 1].Equals(string.Empty))
+                    else if (listScore[(i + 1)/2 - 1].Equals(string.Empty))
                     {
                         dic.Add(listKey[i], listRate[curIndexRate]);
                         curIndexRate++;
@@ -531,11 +531,11 @@ namespace XFCollection.JingDong
                         //这里只能放在这个位置，如果放在外面会数组越界
                         var color = listCompare[curIndexCompare];
                         var key = listKey[i];
-
+                        
                         if (color.Equals("red"))
                         {
                             var value = listRate[curIndexRate];
-                            dic.Add(key, value.Equals("%") ? $"{value}" : $"+{value}");
+                            dic.Add(key, value.Equals("%")?$"{value}":$"+{value}");
                             curIndexRate++;
                         }
                         //灰色 后面比率 暂无评分
@@ -546,7 +546,7 @@ namespace XFCollection.JingDong
                         else
                         {
                             var value = listRate[curIndexRate];
-                            dic.Add(key, value.Equals("%") ? $"{value}" : $"-{value}");
+                            dic.Add(key,value.Equals("%")?$"{value}":$"-{value}");
                             curIndexRate++;
                         }
                         curIndexCompare++;
@@ -556,7 +556,7 @@ namespace XFCollection.JingDong
                 //奇数索引
                 else
                 {
-                    dic.Add(listKey[i], listScore[(i + 1) / 2]);
+                    dic.Add(listKey[i], listScore[(i+1)/2]);
                 }
             }
 

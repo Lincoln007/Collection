@@ -56,7 +56,7 @@ namespace XFCollection.TaoBao
         {
             var parameter = new ShopEnumParameter()
             {
-                KeyWord = "citylife 女包 正品",
+                KeyWord = "女包",
                 ShopType = "Tmall",
                 SearchPage = "5"
             };

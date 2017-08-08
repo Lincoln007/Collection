@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using X.CommLib.Net.WebRequestHelper;
 using X.GlodEyes.Collectors;
 using X.GlodEyes.Collectors.Specialized.JingDong;
+using XFCollection.Http;
 
 namespace XFCollection.TaoBao
 {
@@ -26,12 +28,12 @@ namespace XFCollection.TaoBao
         internal static void Test()
         {
             //var parameter = new NormalParameter { Keyword = @"https://qiansifang8.1688.com/" };
-            var parameter = new NormalParameter { Keyword = @"https://shop70309734.taobao.com/" };
+            var parameter = new NormalParameter { Keyword = @"https://shop144151432.taobao.com/" };
             //var parameter = new NormalParameter { Keyword = @"https://btjiaju.jiyoujia.com/shop/view_shop.htm" };
             //var parameter = new NormalParameter { Keyword = @"https://88421950.taobao.com" };
             parameter.Add(@"targetUid", "5656");
-
-
+            
+            
 
             //var parameter = new NormalParameter { Keyword = @"http://shop73144325.taobao.com"};
 
@@ -152,7 +154,7 @@ namespace XFCollection.TaoBao
             var userId = GetUserId(HtmlSource);
             var shopName = GetShopName(HtmlSource);
             _shopType = GetShopType(HtmlSource);
-            if (shopName.Equals(stringEmpty) || shopName.Equals("店铺浏览"))
+            if (shopName.Equals(stringEmpty)||shopName.Equals("店铺浏览"))
             {
 
                 errorNotice = GetErrorNotice(HtmlSource);
@@ -225,7 +227,7 @@ namespace XFCollection.TaoBao
             {
                 _shopType = "0";
             }
-
+            
 
 
             //System.Func<string, string> GetIntDefault = key => { return string.IsNullOrEmpty(key) ? "0" : key; };
@@ -365,8 +367,8 @@ namespace XFCollection.TaoBao
                 }
 
                 //淘宝企业
-                var taoBaoQiYe = htmlNode.SelectSingleNode("//div[@class=\"shop-type\"]/a")?.Attributes["class"]?.Value;
-                if (taoBaoQiYe == "shop-type-icon-enterprise")
+                var taoBaoQiYe = htmlNode.SelectSingleNode("//a[@class='qiye-user-v J_TGoldlog']")?.Attributes["title"]?.Value;
+                if (taoBaoQiYe == "该用户已通过企业卖家认证")
                 {
                     //淘宝企业
                     return "3";
@@ -386,8 +388,8 @@ namespace XFCollection.TaoBao
                 return "99";
             }
 
-
-
+            
+                
         }
 
 
@@ -398,10 +400,10 @@ namespace XFCollection.TaoBao
         /// <param name="htmlString"></param>
         /// <param name="shopType"></param>
         /// <returns></returns>
-        private string GetShopAge(string htmlString, string shopType)
+        private string GetShopAge(string htmlString,string shopType)
         {
             var shopAge = string.Empty;
-            if (shopType == "4" || shopType == "8")
+            if(shopType=="4"||shopType=="8")
                 shopAge = Regex.Match(htmlString, @"(?<=<span class=""tm-shop-age-num"">)\d+(?=</span>)").Value;
             return string.IsNullOrEmpty(shopAge) ? "0" : shopAge;
         }
@@ -419,7 +421,7 @@ namespace XFCollection.TaoBao
             //var shopStartDate = DateTime.Parse("1990-01-01 00:00:00");
             if (shopType == "2")
                 shopStartDateString = Regex.Match(htmlString, "(?<=<span class=\"id-time\">).*(?=</span>)").Value;
-            return string.IsNullOrEmpty(shopStartDateString) ? DateTime.Parse("1990-01-01 00:00:00") : DateTime.Parse(shopStartDateString);
+            return string.IsNullOrEmpty(shopStartDateString)?DateTime.Parse("1990-01-01 00:00:00"):DateTime.Parse(shopStartDateString);
         }
 
         /// <summary>
@@ -428,7 +430,7 @@ namespace XFCollection.TaoBao
         /// <param name="htmlString"></param>
         /// <param name="shopType"></param>
         /// <returns></returns>
-        private string GetShopKeeper(string htmlString, string shopType)
+        private string GetShopKeeper(string htmlString,string shopType)
         {
 
             var htmlNode = HtmlAgilityPack.HtmlAgilityPackHelper.GetDocumentNodeByHtml(htmlString);
@@ -437,16 +439,22 @@ namespace XFCollection.TaoBao
             if (shopType == "3" || _shopType == "5" || _shopType == "6")
                 shopKeeper = Regex.Match(htmlNode.SelectSingleNode("//div[@class=\"shop-more-info\"]/p[2]").InnerText, "(?<=：).*").Value;
             //淘宝
-            else if (shopType == "2")
+            else if(shopType=="2")
             {
-                shopKeeper = Regex.Match(htmlNode.SelectSingleNode("//span[@class=\"seller\"]/a").InnerText, "(?<=：).*").Value;
+                var tempString = htmlNode.SelectSingleNode("//span[@class=\"seller\"]/a")?.InnerText;
+                //这里有其他情况
+                shopKeeper = tempString != null
+                    ? Regex.Match(tempString, "(?<=：).*").Value
+                    : htmlNode.SelectSingleNode("//a[@class='hCard fn']").InnerText;
+
+
             }
             //天猫 飞猪 天猫国际   
             else if (shopType == "4" || shopType == "7" || shopType == "8")
                 shopKeeper = htmlNode.SelectSingleNode("//div[@class=\"right\"]/a").InnerText;
+            
 
-
-            return shopKeeper;
+            return shopKeeper; 
         }
 
         /// <summary>
@@ -455,7 +463,7 @@ namespace XFCollection.TaoBao
         /// <param name="htmlString"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        private JToken GetContentJsonStringByUserId(string htmlString, string userId)
+        private JToken GetContentJsonStringByUserId(string htmlString,string userId)
         {
 
             var jsonString = Regex.Match(htmlString, "(?<=g_page_config = ){.*?\"map\":{}}(?=;)").Value;
@@ -464,8 +472,9 @@ namespace XFCollection.TaoBao
             if (jToken == null)
             {
                 if (jObject["mods"]?["shoplist"]?["status"]?.ToString().ToLower() == "hide")
-                    throw new Exception("无法显示相关店铺");
-                throw new Exception("json解析失败，jToken为空。");
+                //    throw new Exception("无法显示相关店铺");
+                //throw new Exception("json解析失败，jToken为空。");
+                    return null;
             }
             var jArray = JArray.Parse(jToken.ToString());
             foreach (var token in jArray)
@@ -561,7 +570,7 @@ namespace XFCollection.TaoBao
         {
             return Regex.Match(htmlString, @"(?<=\\""mas\\"":[\s]*\\"").*?(?=\\"")").Value;
         }
-
+        
         /// <summary>
         /// 得到描述相符率
         /// </summary>
@@ -700,7 +709,7 @@ namespace XFCollection.TaoBao
         {
             return Regex.Match(htmlString, "(?<=\"mainAuction\":[\\s]*\").*?(?=\")").Value;
         }
-
+        
 
     }
 }

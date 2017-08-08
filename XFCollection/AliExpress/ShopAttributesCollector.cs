@@ -17,7 +17,7 @@ namespace XFCollection.AliExpress
         //https://ykloving123.aliexpress.com/store/feedback-score/1240676.html
 
         private string _url;
-
+        private string _shopId;
         /// <summary>
         /// Test
         /// </summary>
@@ -25,7 +25,7 @@ namespace XFCollection.AliExpress
         {
             var parameter = new NormalParameter()
             {
-                Keyword = "1491890"
+                Keyword = "1486020"
             };
 
             TestHelp<ShopAttributesCollector>(parameter);
@@ -38,7 +38,8 @@ namespace XFCollection.AliExpress
         /// <returns></returns>
         protected override string InitFirstUrl(NormalParameter param)
         {
-            return _url = $"https://it.aliexpress.com/store/feedback-score/{param.Keyword}.html";
+            _shopId = param.Keyword;
+            return _url = $"https://it.aliexpress.com/store/feedback-score/{_shopId}.html";
         }
 
 
@@ -50,9 +51,11 @@ namespace XFCollection.AliExpress
         /// <returns></returns>
         protected override IResut[] ParseCurrentItems()
         {
-            var storeNumber = GetStoreNumber(HtmlSource);
+             
+            //var storeNumber = GetStoreNumber(HtmlSource);
             var storeLocation = GetStoreLocation(HtmlSource);
-            var storeTime = GetStoreTime(HtmlSource);
+            var shopAge = GetShopAge(HtmlSource);
+            //var storeTime = GetStoreTime(HtmlSource);
             var evaluationDetailHtml = GetEvaluationDetailHtml(HtmlSource);
             var itemList = GetItemList(evaluationDetailHtml);
             var seller = itemList["seller"];
@@ -96,42 +99,44 @@ namespace XFCollection.AliExpress
             var resultList = new List<IResut>();
             IResut resut = new Resut()
             {
-                { "storeNumber",storeNumber },
+                {"shopId",_shopId },
+                //{ "storeNumber",storeNumber },
                 { "storeLocation",storeLocation},
-                { "storeTime",storeTime },
+                {"shopAge",FormatNumber(shopAge) },
+                //{ "storeTime",storeTime },
                 { "seller",seller },
-                {"positiveFeedbackPastSixMonths",positiveFeedbackPastSixMonths },
-                {"feedbackScore", feedbackScore},
+                {"positiveFeedbackPastSixMonths",FormatNumber(RemovePercentSign(positiveFeedbackPastSixMonths)) },
+                {"feedbackScore", FormatNumber(FormatNumber(feedbackScore))},
                 { "aliExpressSellerSince",aliExpressSellerSince },
-                { "described",described},
-                {"describedRatings",describedRatings},
-                { "describedPercent",describedPercent},
-                { "communication",communication },
-                { "communicationRatings",communicationRatings},
-                { "communicationPercent",communicationPercent },
-                { "shippingSpeed",shippingSpeed },
-                {"shippingSpeedRatings",shippingSpeedRatings },
-                { "shippingSpeedPercent",shippingSpeedPercent },
-                { "positiveOneMonth",positiveOneMonth },
-                { "positiveThreeMonths",positiveThreeMonths},
-                { "positiveSixMonths",positiveSixMonths },
-                { "positiveOneYear",positiveOneYear },
-                {"positiveOverall",positiveOverall },
-                {"negativeOneMonth", negativeOneMonth},
-                { "negativeThreeMonths",negativeThreeMonths },
-                { "negativeSixMonths",negativeSixMonths},
-                { "negativeOneYear",negativeOneYear},
-                { "negativeOverall",negativeOverall },
-                { "neutralOneMonth",neutralOneMonth },
-                { "neutralThreeMonths",neutralThreeMonths},
-                { "neutralSixMonths",neutralSixMonths },
-                { "neutralOneYear",neutralOneYear },
-                {"neutralOverAll",neutralOverAll },
-                {"positiveFeedbackRateOneMonth", positiveFeedbackRateOneMonth},
-                { "positiveFeedbackRateThreeMonths",positiveFeedbackRateThreeMonths },
-                { "positiveFeedbackRateSixMonths",positiveFeedbackRateSixMonths},
-                { "positiveFeedbackRateOneYear",positiveFeedbackRateOneYear},
-                { "positiveFeedbackRateOverall",positiveFeedbackRateOverall }
+                { "described",FormatNumber(described)},
+                {"describedRatings",FormatNumber(describedRatings)},
+                { "describedPercent",FormatNumber(describedPercent)},
+                { "communication",FormatNumber(communication) },
+                { "communicationRatings",FormatNumber(communicationRatings)},
+                { "communicationPercent",FormatNumber(communicationPercent) },
+                { "shippingSpeed",FormatNumber(shippingSpeed) },
+                {"shippingSpeedRatings",FormatNumber(shippingSpeedRatings) },
+                { "shippingSpeedPercent",FormatNumber(shippingSpeedPercent) },
+                { "positiveOneMonth",FormatNumber(positiveOneMonth) },
+                { "positiveThreeMonths",FormatNumber(positiveThreeMonths)},
+                { "positiveSixMonths",FormatNumber(positiveSixMonths) },
+                { "positiveOneYear",FormatNumber(positiveOneYear) },
+                {"positiveOverall",FormatNumber(positiveOverall) },
+                {"negativeOneMonth", FormatNumber(negativeOneMonth)},
+                { "negativeThreeMonths",FormatNumber(negativeThreeMonths) },
+                { "negativeSixMonths",FormatNumber(negativeSixMonths)},
+                { "negativeOneYear",FormatNumber(negativeOneYear)},
+                { "negativeOverall",FormatNumber(negativeOverall) },
+                { "neutralOneMonth",FormatNumber(neutralOneMonth) },
+                { "neutralThreeMonths",FormatNumber(neutralThreeMonths)},
+                { "neutralSixMonths",FormatNumber(neutralSixMonths) },
+                { "neutralOneYear",FormatNumber(neutralOneYear) },
+                {"neutralOverAll",FormatNumber(neutralOverAll) },
+                {"positiveFeedbackRateOneMonth", FormatNumber(RemovePercentSign(positiveFeedbackRateOneMonth))},
+                { "positiveFeedbackRateThreeMonths",FormatNumber(RemovePercentSign(positiveFeedbackRateThreeMonths)) },
+                { "positiveFeedbackRateSixMonths",FormatNumber(RemovePercentSign(positiveFeedbackRateSixMonths))},
+                { "positiveFeedbackRateOneYear",FormatNumber(RemovePercentSign(positiveFeedbackRateOneYear))},
+                { "positiveFeedbackRateOverall",FormatNumber(RemovePercentSign(positiveFeedbackRateOverall)) }
             };
 
             resultList.Add(resut);
@@ -144,7 +149,15 @@ namespace XFCollection.AliExpress
 
         }
 
-
+        /// <summary>
+        /// FormatNumber
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        private string FormatNumber(string number)
+        {
+            return string.IsNullOrEmpty(number)||number.Trim().Equals("-") ? null : number;
+        }
 
         /// <summary>
         /// UpdateResultRankInfo
@@ -192,6 +205,17 @@ namespace XFCollection.AliExpress
             return 1;
         }
 
+
+        /// <summary>
+        /// RemovePercentSign
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private string RemovePercentSign(string data)
+        {
+            return data.Replace("%", "");
+        }
+
         /// <summary>
         /// GetStoreNumber
         /// </summary>
@@ -211,6 +235,17 @@ namespace XFCollection.AliExpress
         private string GetStoreLocation(string html)
         {
             return Regex.Match(html, @"(?<=<span class=""store-location"">)[\s\S]*?(?=</span>)").Value.Trim();
+        }
+
+
+        /// <summary>
+        /// GetShopAge
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        private string GetShopAge(string html)
+        {
+            return Regex.Match(Regex.Match(html, "<span class=\"shop-time\">.*</span>").Value, @"\d+").Value;
         }
 
         /// <summary>
@@ -352,7 +387,7 @@ namespace XFCollection.AliExpress
             var feedbackScore = RemoveDot(Regex.Match(list[2], "(?<=<td><span>).*(?=</span>)").Value);
             dic.Add("feedbackScore", feedbackScore);
             var aliExpressSellerSince = Regex.Match(list[3], "(?<=<td>).*(?=</td>)").Value;
-            aliExpressSellerSince = DateTime.Parse(aliExpressSellerSince).ToString();
+            aliExpressSellerSince = DateTime.Parse(aliExpressSellerSince).ToString("yyyy-MM-dd");
             dic.Add("aliExpressSellerSince", aliExpressSellerSince);
             var describedTemp = RemoveEmAndSapn(Regex.Match(list[4], "(?<=<span class=\"dsr-text\">).*(?=</span>)").Value);
             var described = Regex.Match(describedTemp, @"\d+\.\d+(?=\()").Value;

@@ -5,8 +5,6 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.UI;
-using X.CommLib.Miscellaneous;
-using X.CommLib.Net.Miscellaneous;
 using X.CommLib.Net.WebRequestHelper;
 using X.GlodEyes.Collectors;
 using X.GlodEyes.Collectors.Specialized.JingDong;
@@ -232,7 +230,7 @@ namespace XFCollection.AliExpress
             {
                 //var url1 = "https://www.aliexpress.com/store/product/baby-girls-4pcs-sets-longsleeve-cotton-romper-birthday-dress-baby-girls-vestidos-with-pink-stripe-ruffle/1240676_32262374446.html";
                 //var html = GetMainWebContent(url1, null, ref _cookies, null);
-                var html = GetMainWebContent(url.Key.ToString(), null,ref _cookies, null);
+                var html = GetMainWebContent(url, null,ref _cookies, null);
                 //var html = GetWebContent(url.Key.ToString(), ref _cookies);
                 //GetValueByRegex getValueByRegex = new GetValueByRegex(GetResultByRegex);
                 GetValueByHtmlAndRegex getValueByHtmlAndRegex = new GetValueByHtmlAndRegex(GetResultByHtmlAndRegex);
@@ -321,7 +319,8 @@ namespace XFCollection.AliExpress
 
                 IResut resut = new Resut()
                 {
-                    {"Url",url.Key.ToString() },
+                    {"ShopId",_shopId },
+                    {"Url",url},
                     { "Title",title},
                     { "PercentNum",percentNum },
                     { "RatingsNum",ratingsNum},
@@ -464,7 +463,7 @@ namespace XFCollection.AliExpress
             {
                 var value = GetFormatUrl(urlMatch.Value);
                 
-                if (!urlSet.ContainsKey(value))
+                if (!urlSet.Contains(value))
                 {
                     urlSet.Add(value);
                 }

@@ -16,6 +16,7 @@ namespace XFCollection.Http
             Console.WriteLine("HTTP response is: ");
             Console.WriteLine(strResponse);
             
+            
         }
     }
 }

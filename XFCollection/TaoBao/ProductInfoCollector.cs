@@ -98,7 +98,7 @@ namespace XFCollection.TaoBao
             {
                 //Keyword = @"521240802773" //天猫
                 //Keyword = @"521288700194"  //淘宝
-                Keyword = @"520643556727"
+                Keyword = @"529379303460"
             };
 
             parameter["shopId"] = "";

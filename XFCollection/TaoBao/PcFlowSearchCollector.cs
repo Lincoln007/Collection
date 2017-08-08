@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using Newtonsoft.Json.Linq;
 using X.GlodEyes.Collectors;
 using X.GlodEyes.Collectors.Specialized.JingDong;
@@ -12,9 +13,9 @@ namespace XFCollection.TaoBao
     /// <summary>
     /// PcFlowSearchCollector
     /// </summary>
-    public class PcFlowSearchCollector : WebRequestCollector<IResut, NormalParameter>
+    public class PcFlowSearchCollector:WebRequestCollector<IResut,NormalParameter>
     {
-
+        
         private Queue<string> _dataUrlQueue;
         private HttpHelper _httpHelper;
         private string _urlPart = "https://s.taobao.com/search?q=";
@@ -159,7 +160,7 @@ namespace XFCollection.TaoBao
         {
             var jObject = JObject.Parse(GetPageConfig(html));
             int totalPage;
-            return int.TryParse(jObject["mods"]["pager"]["data"]["totalPage"].ToString(), out totalPage) ? totalPage : -1;
+            return int.TryParse(jObject["mods"]["pager"]["data"]["totalPage"].ToString(),out totalPage) ? totalPage : -1;
         }
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace XFCollection.TaoBao
             _totalPage = _totalPage < 3 ? _totalPage : 3;
             for (var i = 0; i < _totalPage; i++)
             {
-                _dataUrlQueue.Enqueue($"{_urlPart}{_q}&s={44 * i}");
+                _dataUrlQueue.Enqueue($"{_urlPart}{_q}&s={44*i}");
             }
         }
 
@@ -181,13 +182,13 @@ namespace XFCollection.TaoBao
         /// <returns></returns>
         private List<Dictionary<string, string>> GetInfoDicList(JObject jObject)
         {
-            var dicList = new List<Dictionary<string, string>>();
+            var dicList = new List<Dictionary<string,string>>();
             var jArray = JArray.Parse(jObject["mods"]["itemlist"]["data"]["auctions"].ToString());
             var productListIndex = 1;
             var p4pProductListIndex = 1;
             foreach (var jToken in jArray)
             {
-                var p4p = jToken["p4p"]?.ToString() ?? string.Empty;
+                var p4p = jToken["p4p"]?.ToString()??string.Empty;
                 var dic = new Dictionary<string, string>()
                 {
                     {"searchKeyword",_q},

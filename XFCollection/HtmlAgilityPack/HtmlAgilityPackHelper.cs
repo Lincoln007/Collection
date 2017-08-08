@@ -27,17 +27,7 @@ namespace XFCollection.HtmlAgilityPack
 
 
 
-        /// <summary>
-        /// GetDocumentNode
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
-        public static HtmlNode GetDocumentNode(string html)
-        {
-            var doc = new HtmlDocument();
-            doc.Load(html);
-            return doc.DocumentNode;
-        }
+     
 
   
 

@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using X.GlodEyes.Collectors;
 using X.GlodEyes.Collectors.Specialized.JingDong;
+using XFCollection.Http;
 using XFCollection.JingDong;
 
 namespace XFCollection.fayuan
@@ -15,6 +16,8 @@ namespace XFCollection.fayuan
     public class JudgementsContentCollector : WebRequestCollector<IResut,NormalParameter>
     {
 
+
+        private string _cookies;
 
         //public override double DefaultMovePageTimeSpan => this.Random.Next(1 * 30, 1 * 60);
 
@@ -51,7 +54,7 @@ namespace XFCollection.fayuan
         /// </summary>
         internal static void Test()
         {
-            var parameter = new NormalParameter {Keyword = @"efea2774-b647-11e3-84e9-5cf3fc0c2c18" };
+            var parameter = new NormalParameter {Keyword = @"f42dfa1f-b5ca-4a22-a416-a74300f61906" };
 
             TestHelp<JudgementsContentCollector>(parameter);
         }
@@ -66,6 +69,7 @@ namespace XFCollection.fayuan
             //var pause = Random.Next(1*10, 1*10);
             //Thread.Sleep(pause * 1000);
             //Console.WriteLine($"暂停{pause}秒");
+            _cookies = Phantomjs.PhantomjsHelper.GetCookiesByUrl("http://wenshu.court.gov.cn/");
             return $"http://wenshu.court.gov.cn/CreateContentJS/CreateContentJS.aspx?DocID={param.Keyword}";
         }
 
@@ -79,7 +83,15 @@ namespace XFCollection.fayuan
         /// <returns></returns>
         protected override string GetMainWebContent(string nextUrl, byte[] postData, ref string cookies, string currentUrl)
         {
-            var webContent = base.GetMainWebContent(nextUrl, postData, ref cookies, currentUrl);
+            
+            HttpHelper httpHelper = new HttpHelper
+            {
+                UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.108 Safari/537.36 2345Explorer/8.6.2.15784",
+                Cookies = _cookies
+            };
+            var webContent = httpHelper.GetHtmlByGet(nextUrl);
+            
+            //var webContent = base.GetMainWebContent(nextUrl, postData, ref _cookies, currentUrl);
 
             if (!Regex.Match(webContent, "^window.location.href='.*';").Success)
                 return webContent;
@@ -97,7 +109,7 @@ namespace XFCollection.fayuan
                     i++;
             }
 
-            return base.GetMainWebContent(nextUrl, postData, ref cookies, currentUrl);
+            return base.GetMainWebContent(nextUrl, postData, ref _cookies, currentUrl);
         }
 
         /// <summary>
@@ -109,7 +121,7 @@ namespace XFCollection.fayuan
 
             
             var resultList = new List<IResut>();
-            var cookies = string.Empty;
+            //var cookies = string.Empty;
             //var htmlString = base.GetMainWebContent(CurrentUrl, null,ref cookies, null);
 
            

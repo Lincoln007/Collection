@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using X.GlodEyes.Collectors;
 using X.GlodEyes.Collectors.Specialized.JingDong;
-using XFCollection.phantomjs;
+
 
 namespace XFCollection.TaoBao
 {
@@ -121,7 +121,7 @@ namespace XFCollection.TaoBao
             {
                 //通过phantomjs得到cookies
                 _cookies =
-                    PhantomjsDemo.GetCookies(
+                    Phantomjs.PhantomjsHelper.GetCookies(
                         $"https://list.taobao.com/itemlist/default.htm?viewIndex=1&commend=all&atype=b&nick={nick}&style=list&same_info=1&tid=0&isnew=2&zk=all&_input_charset=utf-8");
             }
 

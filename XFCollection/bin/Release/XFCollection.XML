@@ -4,6 +4,103 @@
         <name>XFCollection</name>
     </assembly>
     <members>
+        <member name="T:XFCollection._58Job.JobCollector">
+            <summary>
+            JobCollector
+            </summary>
+        </member>
+        <member name="T:XFCollection._58Job.JobCollector.TimeEnum">
+            <summary>
+            DefaultMovePageTimeSpan
+            </summary>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.Test">
+            <summary>
+            测试
+            </summary>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.InitFirstUrl(XFCollection._58Job.JobParameter)">
+            <summary>
+            InitFirstUrl
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.ParseCurrentItems">
+            <summary>
+            ParseCurrentItems
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.MoveNext">
+            <summary>
+            MoveNext
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.GetMainWebContent(System.String,System.Byte[],System.String@,System.String)">
+            <summary>
+            GetMainWebContent
+            </summary>
+            <param name="nextUrl"></param>
+            <param name="postData"></param>
+            <param name="cookies"></param>
+            <param name="currentUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.GetWebContent(System.String)">
+            <summary>
+            GetWebContent
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.ParseNextUrl">
+            <summary>
+            ParseNextUrl
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.GetNumber(System.String)">
+            <summary>
+            GetNumber
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.FormatTime(System.String)">
+            <summary>
+            FormatTime
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection._58Job.JobCollector.GetId58">
+            <summary>
+            GetCna
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:XFCollection._58Job.JobParameter">
+            <summary>
+            JobParameter
+            </summary>
+        </member>
+        <member name="P:XFCollection._58Job.JobParameter.City">
+            <summary>
+             城市
+            </summary>
+        </member>
+        <member name="P:XFCollection._58Job.JobParameter.JobName">
+            <summary>
+            职位名称
+            </summary>
+        </member>
+        <member name="P:XFCollection._58Job.JobParameter.PublishTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
         <member name="T:XFCollection.ADSL.ADSLHelper">
             <summary>
             ADSLHelper
@@ -372,6 +469,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:XFCollection.AliExpress.ShopAttributesCollector.FormatNumber(System.String)">
+            <summary>
+            FormatNumber
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
         <member name="M:XFCollection.AliExpress.ShopAttributesCollector.UpdateResultRankInfo(X.GlodEyes.Collectors.IResut[],System.Int32)">
             <summary>
             UpdateResultRankInfo
@@ -397,6 +501,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:XFCollection.AliExpress.ShopAttributesCollector.RemovePercentSign(System.String)">
+            <summary>
+            RemovePercentSign
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
         <member name="M:XFCollection.AliExpress.ShopAttributesCollector.GetStoreNumber(System.String)">
             <summary>
             GetStoreNumber
@@ -407,6 +518,13 @@
         <member name="M:XFCollection.AliExpress.ShopAttributesCollector.GetStoreLocation(System.String)">
             <summary>
             GetStoreLocation
+            </summary>
+            <param name="html"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.AliExpress.ShopAttributesCollector.GetShopAge(System.String)">
+            <summary>
+            GetShopAge
             </summary>
             <param name="html"></param>
             <returns></returns>
@@ -479,6 +597,66 @@
             GetItemList
             </summary>
             <param name="html"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XFCollection.AliExpress.ShopProductCollector">
+            <summary>
+            ShopProductCollector
+            </summary>
+        </member>
+        <member name="P:XFCollection.AliExpress.ShopProductCollector.DefaultMovePageTimeSpan">
+            <summary>
+            DefaultMovePageTimeSpan
+            </summary>
+        </member>
+        <member name="M:XFCollection.AliExpress.ShopProductCollector.#ctor">
+            <summary>
+            无参构造函数
+            </summary>
+        </member>
+        <member name="M:XFCollection.AliExpress.ShopProductCollector.InitFirstUrl(X.GlodEyes.Collectors.Specialized.JingDong.NormalParameter)">
+            <summary>
+            InitFirstUrl
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.AliExpress.ShopProductCollector.ParseCurrentItems">
+            <summary>
+            ParseCurrentItems
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.AliExpress.ShopProductCollector.ParseNextUrl">
+            <summary>
+            ParseNextUrl
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.AliExpress.ShopProductCollector.FormatNumber(System.String)">
+            <summary>
+            FormatNumber
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.AliExpress.ShopProductCollector.ParseCurrentPage">
+            <summary>
+            ParseCurrentPage
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.AliExpress.ShopProductCollector.UpdateResultRankInfo(X.GlodEyes.Collectors.IResut[],System.Int32)">
+            <summary>
+            UpdateResultRankInfo
+            </summary>
+            <param name="items"></param>
+            <param name="page"></param>
+        </member>
+        <member name="M:XFCollection.AliExpress.ShopProductCollector.GetCna">
+            <summary>
+            GetCna
+            </summary>
             <returns></returns>
         </member>
         <member name="T:XFCollection.DataBase.MySqlHelper">
@@ -728,6 +906,54 @@
             <param name="urlString">请求的URL</param>
             <param name="encoding">页面使用的编码</param>
             <param name="postDataString">POST数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:XFCollection.fayuan.JudgementsIncrementalCollector">
+            <summary>
+            增量
+            </summary>
+        </member>
+        <member name="M:XFCollection.fayuan.JudgementsIncrementalCollector.Test1">
+            <summary>
+            测试
+            </summary>
+        </member>
+        <member name="M:XFCollection.fayuan.JudgementsIncrementalCollector.InitFirstUrl(XFCollection.fayuan.FaYuanParameter)">
+            <summary>
+            定义第一个链接,案件类型:刑事案件,法院地域:北京市,裁判年份:2016
+            </summary>
+            <param name="param">参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.fayuan.JudgementsIncrementalCollector.ParseCurrentItems(System.String)">
+            <summary>
+            解析当前元素
+            </summary>
+            <param name="htmlSource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.fayuan.JudgementsIncrementalCollector.GetMainWebContent(System.String,System.Byte[],System.String@,System.String)">
+            <summary>
+            GetMainWebContent
+            
+            </summary>
+            <param name="nextUrl"></param>
+            <param name="postData"></param>
+            <param name="cookies"></param>
+            <param name="currentUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.fayuan.JudgementsIncrementalCollector.ParseNextUrl">
+            <summary>
+            解析下一个链接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.fayuan.JudgementsIncrementalCollector.GetOneDate(System.String)">
+            <summary>
+            得到第一个日期
+            </summary>
+            <param name="htmlString">网页内容</param>
             <returns></returns>
         </member>
         <member name="T:XFCollection.fayuan.JudgementsCollector">
@@ -1219,6 +1445,13 @@
             语言包路径
             </summary>
         </member>
+        <member name="M:XFCollection.fayuan.TesseractDemo.GetValidateCodeByUrlExtend(System.String)">
+            <summary>
+            得到验证码数字通过链接
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
         <member name="M:XFCollection.fayuan.TesseractDemo.GetValidateCodeByUrl(System.String)">
             <summary>
             得到验证码数字通过链接
@@ -1357,54 +1590,6 @@
             <summary>
             Type
             </summary>
-        </member>
-        <member name="T:XFCollection.bin.fayuan.JudgementsIncrementalCollector">
-            <summary>
-            增量
-            </summary>
-        </member>
-        <member name="M:XFCollection.bin.fayuan.JudgementsIncrementalCollector.Test1">
-            <summary>
-            测试
-            </summary>
-        </member>
-        <member name="M:XFCollection.bin.fayuan.JudgementsIncrementalCollector.InitFirstUrl(XFCollection.fayuan.FaYuanParameter)">
-            <summary>
-            定义第一个链接,案件类型:刑事案件,法院地域:北京市,裁判年份:2016
-            </summary>
-            <param name="param">参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:XFCollection.bin.fayuan.JudgementsIncrementalCollector.ParseCurrentItems(System.String)">
-            <summary>
-            解析当前元素
-            </summary>
-            <param name="htmlSource"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XFCollection.bin.fayuan.JudgementsIncrementalCollector.GetMainWebContent(System.String,System.Byte[],System.String@,System.String)">
-            <summary>
-            GetMainWebContent
-            
-            </summary>
-            <param name="nextUrl"></param>
-            <param name="postData"></param>
-            <param name="cookies"></param>
-            <param name="currentUrl"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XFCollection.bin.fayuan.JudgementsIncrementalCollector.ParseNextUrl">
-            <summary>
-            解析下一个链接
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:XFCollection.bin.fayuan.JudgementsIncrementalCollector.GetOneDate(System.String)">
-            <summary>
-            得到第一个日期
-            </summary>
-            <param name="htmlString">网页内容</param>
-            <returns></returns>
         </member>
         <member name="T:XFCollection.gongshang.X315Collector">
             <summary>
@@ -1914,6 +2099,56 @@
             <param name="registeredCapital">The registered capital.</param>
             <param name="punishmentInformatin">The punishment informatin.</param>
         </member>
+        <member name="T:XFCollection.Gov.ShandongCollector">
+            <summary>
+            ShandongCollector
+            </summary>
+        </member>
+        <member name="P:XFCollection.Gov.ShandongCollector.DefaultMovePageTimeSpan">
+            <summary>
+            DefaultMovePageTimeSpan
+            </summary>
+        </member>
+        <member name="M:XFCollection.Gov.ShandongCollector.Test">
+            <summary>
+            测试
+            </summary>
+        </member>
+        <member name="M:XFCollection.Gov.ShandongCollector.InitFirstUrl(XFCollection.Gov.ShandongParameter)">
+            <summary>
+            InitFirstUrl
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.Gov.ShandongCollector.ParseCurrentItems">
+            <summary>
+            ParseCurrentItems
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.Gov.ShandongCollector.ParseNextUrl">
+            <summary>
+            ParseNextUrl
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.Gov.ShandongCollector.MoveNext">
+            <summary>
+            MoveNext
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:XFCollection.Gov.ShandongParameter">
+            <summary>
+            ShandongParameter
+            </summary>
+        </member>
+        <member name="P:XFCollection.Gov.ShandongParameter.GatherDays">
+            <summary>
+            GatherDays
+            </summary>
+        </member>
         <member name="T:XFCollection.HtmlAgilityPack.HtmlAgilityPackHelper">
             <summary>
             HtmlAgilityPackHelper
@@ -1922,13 +2157,6 @@
         <member name="M:XFCollection.HtmlAgilityPack.HtmlAgilityPackHelper.GetDocumentNodeByHtml(System.String)">
             <summary>
             GetDocumentNodeByHtml
-            </summary>
-            <param name="html"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XFCollection.HtmlAgilityPack.HtmlAgilityPackHelper.GetDocumentNode(System.String)">
-            <summary>
-            GetDocumentNode
             </summary>
             <param name="html"></param>
             <returns></returns>
@@ -1973,6 +2201,11 @@
             Referer
             </summary>
         </member>
+        <member name="F:XFCollection.Http.HttpHelper.CacheControl">
+            <summary>
+            CacheControl
+            </summary>
+        </member>
         <member name="M:XFCollection.Http.HttpHelper.Test">
             <summary>
             Test
@@ -1993,11 +2226,29 @@
             <param name="postDataString"></param>
             <returns></returns>
         </member>
+        <member name="M:XFCollection.Http.HttpHelper.GetImage(System.String)">
+            <summary>
+            GetImage
+            </summary>
+            <param name="url"></param>
+        </member>
+        <member name="M:XFCollection.Http.HttpHelper.Test1">
+            <summary>
+            Test1
+            </summary>
+        </member>
         <member name="M:XFCollection.Http.HttpHelper.GetFormatCookies(System.String)">
             <summary>
             GetFormatCookies
             </summary>
             <param name="cookies"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.Http.HttpHelper.GetHtmlEncoding(System.String)">
+            <summary>
+            得到网页的默认编码
+            </summary>
+            <param name="html"></param>
             <returns></returns>
         </member>
         <member name="T:XFCollection.Http.MyHttpHelper">
@@ -2891,11 +3142,25 @@
             Test
             </summary>
         </member>
-        <member name="M:XFCollection.phantomjs.PhantomjsDemo.Main(System.String[])">
+        <member name="M:XFCollection.Phantomjs.PhantomjsHelper.Main(System.String[])">
             <summary>
             Main
             </summary>
             <param name="args"></param>
+        </member>
+        <member name="M:XFCollection.Phantomjs.PhantomjsHelper.GetHtml(System.String)">
+            <summary>
+            GetHtml
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.Phantomjs.PhantomjsHelper.GetCookiesByUrl(System.String)">
+            <summary>
+            GetCookiesByUrl
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
         </member>
         <member name="T:XFCollection.Properties.Resources">
             <summary>
@@ -4059,13 +4324,6 @@
             <param name="firstUrlPart"></param>
             <param name="totalPage"></param>
         </member>
-        <member name="M:XFCollection.TaoBao.ShopProductCollector.GetListHtml(System.String)">
-            <summary>
-            GetListHtml
-            </summary>
-            <param name="listUrl"></param>
-            <returns></returns>
-        </member>
         <member name="M:XFCollection.TaoBao.ShopProductCollector.InitTotalPage(System.String)">
             <summary>
             InitTotalPage
@@ -4074,6 +4332,113 @@
             <returns></returns>
         </member>
         <member name="M:XFCollection.TaoBao.ShopProductCollector.GetMainWebContent(System.String,System.Byte[],System.String@,System.String)">
+            <summary>
+            GetMainWebContent
+            </summary>
+            <param name="nextUrl"></param>
+            <param name="postData"></param>
+            <param name="cookies"></param>
+            <param name="currentUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XFCollection.TaoBao.ShopProductOnePageCollector">
+            <summary>
+            ShopProductOnePageCollector
+            </summary>
+        </member>
+        <member name="P:XFCollection.TaoBao.ShopProductOnePageCollector.DefaultMovePageTimeSpan">
+            <summary>
+            DefaultMovePageTimeSpan
+            </summary>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.Test">
+            <summary>
+            测试
+            </summary>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.Test1">
+            <summary>
+            Test1
+            </summary>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.UpdateResultRankInfo(X.GlodEyes.Collectors.IResut[],System.Int32)">
+            <summary>
+            UpdateResultRankInfo
+            </summary>
+            <param name="items"></param>
+            <param name="page"></param>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.InitFirstUrl(X.GlodEyes.Collectors.Specialized.JingDong.NormalParameter)">
+            <summary>
+            InitFirstUrl
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.ParseCountPage">
+            <summary>
+            ParseCountPage
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.ParseCurrentPage">
+            <summary>
+            ParseCurrentPage
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.ParseCurrentItems">
+            <summary>
+            ParseCurrentItems
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.ParseNextUrl">
+            <summary>
+            ParseNextUrl
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.InitFirstUrlPart(System.String)">
+            <summary>
+            InitFirstUrlPart
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.InitUrlQueue(System.String)">
+            <summary>
+            InitUrlQueue
+            </summary>
+            <param name="url"></param>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.InitUrlQueue(System.String,System.Int32)">
+            <summary>
+            InitUrlQueue
+            </summary>
+            <param name="firstUrlPart"></param>
+            <param name="totalPage"></param>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.GetListHtml(System.String)">
+            <summary>
+            GetListHtml
+            </summary>
+            <param name="listUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.InitTotalPage(System.String)">
+            <summary>
+            InitTotalPage
+            </summary>
+            <param name="listHtmlFirst"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.TaoBao.ShopProductOnePageCollector.GetMainWebContent(System.String,System.Byte[],System.String@,System.String)">
             <summary>
             GetMainWebContent
             </summary>
@@ -4233,6 +4598,56 @@
             </summary>
             <param name="authCodeIndex"></param>
             <param name="success"></param>
+        </member>
+        <member name="T:XFCollection.Zhe800.ProductCollecor">
+            <summary>
+            ProductCollecor
+            </summary>
+        </member>
+        <member name="M:XFCollection.Zhe800.ProductCollecor.Test">
+            <summary>
+            测试
+            </summary>
+        </member>
+        <member name="M:XFCollection.Zhe800.ProductCollecor.MoveNext">
+            <summary>
+            MoveNext
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.Zhe800.ProductCollecor.InitFirstUrl(XFCollection.Zhe800.ProductParameter)">
+            <summary>
+            InitFirstUrl
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.Zhe800.ProductCollecor.ParseCurrentItems">
+            <summary>
+            ParseCurrentItems
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XFCollection.Zhe800.ProductCollecor.ParseNextUrl">
+            <summary>
+            ParseNextUrl
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:XFCollection.Zhe800.ProductParameter">
+            <summary>
+            ProductParameter
+            </summary>
+        </member>
+        <member name="P:XFCollection.Zhe800.ProductParameter.KeyWord">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:XFCollection.Zhe800.ProductParameter.SearchPage">
+            <summary>
+            SearchPage
+            </summary>
         </member>
     </members>
 </doc>

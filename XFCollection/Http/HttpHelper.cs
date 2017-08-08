@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using SHDocVw;
 
 namespace XFCollection.Http
 {
@@ -60,11 +62,16 @@ namespace XFCollection.Http
         public string Referer = string.Empty;
 
         /// <summary>
+        /// CacheControl
+        /// </summary>
+        public string CacheControl = string.Empty;
+
+        /// <summary>
         /// Test
         /// </summary>
         internal void Test()
         {
-
+            
             var htmlTest = GetHtmlByPost("http://music.163.com/weapi/v1/resource/comments/R_SO_4_418603077?csrf_token=", "params=P86tal00glp6vCsICC2ReHcObZCGDDxucxkNTuCDtZ%2BhUKxYznpaEq0hLzapHrwuvMELsl4X68crdlke%2FqVZZDEZD%2FfUdrbluk%2FQhIQZzW07zl7p72er4wv37d%2BPtOpo%2F69bmEpK2UAdOMUjcOgK8PWua2dytf6hJAaziscIHjnyVxPeCclwJBTy%2F9qmvnCw&encSecKey=6e07a383efd3c23a32ae837c90bfffc8d1ec1b27b4579d5e11782eaa383be39956f343ff548995634700c5ad7ad5f1cb8d227d3a2a7b07e0e74ffd630db22daa14b21f6310df63eae5e94079daa443d3f4fd0eb722d66814df2fa71c28b6ef444f58a38f2b10f58855c3ad190eae7bfb23e1d5b5895bfe3401e94c31b2fe8e63");
             //var hashSet = new HashSet<string>();
             var html = GetHtmlByGet("http://op.hanhande.com/");
@@ -96,11 +103,13 @@ namespace XFCollection.Http
             httpWebRequest.Timeout = Timeout;
             httpWebRequest.AllowAutoRedirect = AllowAutoRedirect;
             httpWebRequest.Referer = Referer;
+
             if (!string.IsNullOrEmpty(Cookies))
                 httpWebRequest.Headers.Add("Cookie", Cookies);
-
+            if(!string.IsNullOrEmpty(CacheControl))
+                httpWebRequest.Headers.Add("Cache-Control",CacheControl);
             var httpWebResponse = httpWebRequest.GetResponse() as HttpWebResponse;
-
+            
             using (var stream = httpWebResponse?.GetResponseStream())
                 if (stream != null)
                     //使用缺省的编码
@@ -166,11 +175,51 @@ namespace XFCollection.Http
         }
 
         /// <summary>
+        /// GetImage
+        /// </summary>
+        /// <param name="url"></param>
+        public byte[] GetImage(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+                return null;
+            var httpWebRequest = WebRequest.Create(url) as HttpWebRequest;
+            if (httpWebRequest == null) return null;
+            httpWebRequest.Method = "GET";
+            httpWebRequest.UserAgent = UserAgent;
+
+            var httpWebResponse = httpWebRequest.GetResponse() as HttpWebResponse;
+
+            using (var stream = httpWebResponse?.GetResponseStream())
+                if (stream != null)
+                {
+                    var bitmap = new Bitmap(stream);
+                    //bitmap.Save(@"C:\Users\Administrator\Desktop\验证码库\myTest.gif");
+                    var memoryStream = new MemoryStream();
+                    bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Gif);
+                    var bytes = memoryStream.GetBuffer();
+                    return bytes;
+                }
+                else
+                {
+                    return null;
+                }
+            
+        }
+
+        /// <summary>
+        /// Test1
+        /// </summary>
+        public void Test1()
+        {
+            GetImage("http://image.58.com/showphone.aspx?t=v55&v=E6B48CA0A765ED5BD6296D7D75B9B3593");
+        }
+
+        /// <summary>
         /// GetFormatCookies
         /// </summary>
         /// <param name="cookies"></param>
         /// <returns></returns>
-        private string GetFormatCookies(string cookies)
+        public static string GetFormatCookies(string cookies)
         {
             //cookies字符串的分隔符为;有时候为&
             //Expires日期会含有,
@@ -191,7 +240,7 @@ namespace XFCollection.Http
                 var isContains = false;
                 for (var i = 0; i < length; i++)
                 {
-                    if (!value.ToLower().Contains(removeString[i].ToLower())) continue;
+                    if (!value.ToLower().Contains(removeString[i].ToLower()))   continue;
                     isContains = true;
                     break;
                 }
@@ -219,6 +268,22 @@ namespace XFCollection.Http
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 得到网页的默认编码
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static Encoding GetHtmlEncoding(string html)
+        {
+            // 目前发现的两种格式
+            // <meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+            // <meta charset="utf-8">
+            var encoding =
+                Regex.Match(Regex.Match(html, "<meta.*?>").Value,
+                    @"(?<=[cC][hH][aA][rR][sS][eE][tT][\s]*=[\s]*[""]?[\s]*)[^""]+?(?=[\s""])").Value;
+            return Encoding.GetEncoding(encoding);
         }
 
     }

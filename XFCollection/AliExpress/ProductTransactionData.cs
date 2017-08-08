@@ -16,7 +16,7 @@ namespace XFCollection.AliExpress
     /// <summary>
     /// 
     /// </summary>
-    public class ProductTransactionData : WebRequestCollector<IResut, NormalParameter>
+    public class ProductTransactionData:WebRequestCollector<IResut,NormalParameter>
     {
 
         //private string _url;
@@ -69,7 +69,7 @@ namespace XFCollection.AliExpress
 
             var dic = GetPostDataDicByHtml(feedbackHtml);
             InitPostDataQueue(dic);
-
+            
             //dic["page"] = "1";
             //var postDataCur = WebRequestCtrl.BuildPostDatas(dic, Encoding.UTF8);
             //var postHtml = GetMainWebContent("https://feedback.aliexpress.com/display/evaluationList.htm", postDataCur,
@@ -86,9 +86,9 @@ namespace XFCollection.AliExpress
         /// <param name="cookies"></param>
         /// <param name="currentUrl"></param>
         /// <returns></returns>
-        protected override string GetMainWebContent(string nextUrl, byte[] postData, ref string cookies, string currentUrl)
+        protected override string GetMainWebContent(string nextUrl, byte[] postData, ref string cookies,string currentUrl)
         {
-
+            
             return base.GetWebContent("https://feedback.aliexpress.com/display/evaluationList.htm", Encoding.Default.GetBytes(nextUrl), ref _cookies, null);
         }
 
@@ -177,14 +177,14 @@ namespace XFCollection.AliExpress
         /// InitPostDataQueue
         /// </summary>
         /// <param name="infoDic"></param>
-        private void InitPostDataQueue(Dictionary<string, string> infoDic)
+        private void InitPostDataQueue(Dictionary<string,string> infoDic)
         {
             for (var i = 0; i < _totalPage; i++)
             {
                 infoDic["page"] = $"{i} + 1";
                 var postDataCur = WebRequestCtrl.BuildPostDatas(infoDic, Encoding.UTF8);
                 _postDataQueue.Enqueue(Encoding.Default.GetString(postDataCur));
-            }
+            }    
         }
 
 
@@ -271,7 +271,7 @@ namespace XFCollection.AliExpress
             var starMCollection = Regex.Matches(html, @"(?<=<div class=""star star-m""><span style=""width:)\d+%(?=;"">)");
             //if(starMCollection.Count != 10)
             //    throw new Exception("starM的个数不为10。");
-            var starMList = (from Match starM in starMCollection select starM.Value.Replace("%", "")).ToList();
+            var starMList = (from Match starM in starMCollection select starM.Value.Replace("%","")).ToList();
             return starMList;
         }
 
@@ -311,15 +311,15 @@ namespace XFCollection.AliExpress
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        private Dictionary<string, string> GetPostDataDicByHtml(string html)
+        private Dictionary<string,string> GetPostDataDicByHtml(string html)
         {
             var form = Regex.Match(html, @"<form id[\s\S]*</form>").Value;
             var valueCollection = Regex.Matches(form, "(?<=value=[\"']).*?(?=['\"])");
             var valueList = (from Match value in valueCollection select value.Value).ToList();
 
-            if (valueList.Count != 11)
+            if(valueList.Count!=11)
                 throw new Exception("Post参数解析不正确！");
-            var dic = new Dictionary<string, string>()
+            var dic = new Dictionary<string,string>()
             {
                 ["ownerMemberId"] = valueList[0],
                 ["companyId"] = valueList[1],
@@ -365,7 +365,7 @@ namespace XFCollection.AliExpress
 
 
 
-
+        
 
     }
 }

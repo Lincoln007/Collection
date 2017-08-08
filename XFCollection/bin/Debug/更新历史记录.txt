@@ -1,4 +1,375 @@
-﻿2017-3-2
+﻿2017-08-02
+Gov.ShandongCollector
+publishTime中文日期转换为能存入数据库的时间格式
+
+
+2017-07-27
+TaoBao.ShopProductCollector
+被屏蔽了以后尝试5次扔失败抛出异常
+
+
+
+Gov.ShandongParameter
+GatherDays # 采集天数
+
+Gov.ShandongCollector
+url # 链接
+title # 标题
+content # 正文内容          
+publisher # 发布者
+publishTime # 发布时间
+
+2017-07-19
+TaoBao.JiYouJiaCollector
+淘宝企业页面改版，判断条件更改
+
+2017-07-18
+TaoBao.ShopProductCollector
+每个IP持一个固定的cookies否则马上被屏蔽
+定义一个静态的IP对应cookies的字典
+设置翻页时间间隔为20s，程序暂时运行正常
+
+2017-07-17
+TaoBao.ShopProductCollector
+存放在另一个链接的需要验证的cookie增加
+设置Cache-Control请求头为max-age=0
+
+2017-07-04
+TaoBao.ShopProductCollector
+部分页面产品信息从存放到另一个链接改成内置到html内
+
+2017-07-03
+_58Job.JobCollector
+JobUpdateDate格式化成日期格式:年-月-日
+
+2017-06-26
+_58Job.JobCollector
+JobUrl # 职位链接	
+JobName # 职位名称
+JobCount # 招聘人数
+DegreeRequired # 学历要求
+ExperienceRequired # 经验要求	
+Location # 所在区域
+Salary # 薪水
+JobUpdateDate # 职位更新日期
+BrowseCount # 浏览人数
+ApplyCount # 申请人数
+Phone_Pic # 联系电话
+ContactPerson # 联系人
+CompanyUrl # 公司链接
+CompanyName # 公司名称
+MemberYear # 网邻通年数
+MainIndustry # 所属行业
+CompanyPersonCount # 公司人数
+BusinessLicense # 营业执照认证信息
+TaobaoShopLicense # 淘宝店铺认证信息
+RealNameLicense # 实名认证信息
+ResumeFeedback # 简历反馈率
+CompanyJobNumber # 招聘职位数量
+MemberMonth # 加入58的月数
+WorkAddress # 工作地址
+JobDescription # 职位描述
+Phone_OCR # 联系电话 
+
+目前没有发现屏蔽的情况。
+连续访问一段时间会返回错误的网页内容，设置重试次数为3次，3次以后抛出异常。
+
+
+
+
+2017-06-19
+Zhe800.ProductCollector
+ProductName # 产品名称
+Url # 链接
+Price # 促销价格
+MaxPrice # 最高价格
+
+
+2017-06-01
+TaoBao.ShopProductCollector
+增加了对阿里旅游(飞猪)的支持
+
+
+2017-05-31
+升级成.net 4.0
+
+TaoBao.ShopProductCollector
+有些comment不存在，已修复
+
+2017-05-27
+TaoBao.JiYouJiaCollector
+部分网页掌柜名是另外一种格式
+已增加支持
+
+
+2017-05-26
+Http.HttpHelper
+增加得到网页默认编码方法
+
+2017-05-25
+TaoBao.JiYouJiaCollector
+部分根据店铺名搜索的时候json格式匹配不上
+现已调整不抛出异常而是根据掌柜名再试一次
+
+
+2017-05-19
+TaoBao.ShopProductOnePageCollector
+TaoBao.ShopProductCollector
+Regex.Match转换类型出错，获取Value
+
+2017-05-18
+TaoBao.ShopProductCollector
+productId # 产品编号
+productName # 产品名称
+productUrl # 产品链接
+shopId # 店铺链接
+shopName # 店铺名
+price # 价格
+maxPrice # 最大价格                                
+saleNum # 销量
+comment # 评论数
+
+
+TaoBao.ShopProductOnePageCollector
+TaoBao.ShopProductCollector引擎特别版只需要采集一页内容
+
+
+2017-05-17
+TaoBao.AlitrustCollector
+翻页太快导致需要登录
+30s翻页间隔改为60s
+若没有得到正确的json则重发请求
+
+2017-05-09
+AliExpress.ShopProductCollector
+翻页太快导致需要登录
+翻页时间间隔改为10s
+部分字段格式更改
+
+AliExpress.ShopAttributesCollector
+部分字段格式更改
+
+2017-05-04
+AliExpress.ShopAttributesCollector
+storeNumber和shopId重复了，留下shopId字段
+
+
+2017-04-24
+TaoBao.JiYouJiaCollector
+goodCommentCount为空字符串返回null
+
+2017-04-21
+TaoBao.JiYouJiaCollector
+goodCommentCount新增
+
+2017-04-18
+TaoBao.AlitrustCollector
+Error_Notice新增
+违规下架
+
+
+2017-04-17
+TaoBao.JiYouJiaCollector
+Error_Notice新增
+店铺不符合开通条件
+页面找不到了
+
+json里面的status为hide
+抛无法显示相关店铺异常
+
+
+2017-04-13
+TaoBao.AlitrustCollector
+DayMonitor设置为1
+没有店铺等级设为""
+Error_Notice不为空，DayMonitor设置为0
+
+
+2017-04-12
+TaoBao.JiYouJiaCollector
+Error_Notice不为空，DayMonitor设置为0
+
+普通淘宝店铺采集shopStartDate
+天猫和天猫国际店铺采集ShopAge
+在店铺名查不到店铺信息的情况下，使用掌柜名再尝试一次
+特例https://shop100000712.taobao.com/使用店铺名和掌柜名都查不到店铺信息
+
+TaoBao.AlitrustCollector
+得到评分内容页面修改，设置cookies，cna24位随机数，post参数_csrf_token和site_key32位随机数
+referer设置为主页链接
+
+Http.HttpHelper
+新增Referer属性
+
+
+2017-04-11
+TaoBao.JiYouJiaCollector
+新增DayMonitor字段
+区分店铺类别
+天猫-4，淘宝-2 ，淘宝企业-3，诚信通-1，极有家-5，亲宝贝-6，飞猪-7 ,天猫国际 -8,未知--99
+
+2017-04-10
+TaoBao.AlitrustCollector
+Error_Notice新增,账号关闭-旺铺关闭,404-阿里巴巴
+
+
+2017-04-07	
+TaoBao.AlitrustCollector
+Json解析问题
+Error_Notice新增，旺铺关闭页面-未达到
+
+2017-04-06
+TaoBao.AlitrustCollector
+链接拼接成新链接问题
+如果末尾有/则不需要加/
+
+Incorrect datetime value: '' for column 'ShopStartDate' at row 1
+ShopStartDate设置成默认值1990/1/1 0:00:00
+
+
+2017-04-05
+TaoBao.AlitrustCollector
+页面改版
+评价率暂无数据为空，与行业持平为0，高于+value，低于-value
+采集ShpAgeNum，原来的ShopStartDate数据为当前时间减去ShpAgeNum，现在置为空
+
+
+2017-03-29
+AliExpress.ProductTransactionData
+shopId # 店铺编号
+nameVipLevel # 买家名字
+productName # 产品名
+totalPrice # 数量
+feedBackDate # 反馈日期
+feedBackContent # 反馈内容											
+starM # 星级
+productId # 产品编号
+SearchPageIndex # 
+SearchPageRank # 
+
+
+AliExpress.ShopProductCollector
+shopId # 店铺编号
+productName # 产品名
+productUrl # 产品链接
+productId # 产品编号
+price # 价格
+priceOld # 原价格
+orderNum # 订单数
+SearchPageIndex # 
+SearchPageRank # 
+
+部分字段格式问题 productName解码
+
+2017-03-28
+JingDong.JDShopDetailCollector
+页面不存在判断条件增加
+
+AliExpress.ProductTransactionData
+英文时间格式转换为中文时间格式
+starM星级去掉%符
+评价内容中有html字符，比如（&#39;）解码成曾经字符
+
+2017-03-27
+TaoBao.ShopEnumCollector使用sendlog标记一下页数不存在
+json解析空引用问题解决
+TaoBao.ShopProductCollector
+阿里旅行不支持
+TaoBao.MSearchCollector
+使用sendlog后不定义链接
+
+JingDong.JDShopDetailCollector
+页面不存在判断页面改变修改
+
+
+
+2017-03-24
+TaoBao.ShopProductCollector店铺商品采集引擎当店铺不存在时，直接完成这个任务
+TaoBao.MSearchCollector淘宝手机流量查询出现违禁词时，结束这个任务
+使用sendlog标记一下店铺不存在
+
+
+2017-03-23
+TaoBao.ShopEnumCollector
+Tmall取总页数的位置有所不同
+页面没有一个店铺问题解决
+json解析的时候有些字段没有，用可空类型处理?
+
+
+JingDong.JDShopDetailCollector
+网页上判断评分率正负号的字段产生变化修改
+
+
+2017-03-21
+TaoBao.ShopEnumCollector
+数据字段类型问题，现已去掉百分号
+
+
+2017-03-20
+TaoBao.ShopProductCollector
+页数不存在的返回为0页
+TaoBao.ShopEnumCollector
+Json解析MarketName索引越界问题更改
+
+2017-3-16
+TaoBao.ShopEnumParameter
+KeyWord 关键词
+ShopType 店铺类型
+SearchPage 搜索页数
+
+TaoBao.ShopEnumCollector
+ShopId # 
+ShopName # 
+ShopUrl # 
+ShopLogoUrl # 
+MarketName # 
+ShopRank # 
+Location # 
+InCountry # 
+InProvince # 
+InCity # 
+BossNickName # 
+EncryptedUserId # 
+MainBiz # 
+MainIndustry # 
+SaleCount # 
+ProductCount # 
+GoodCommentCount # 
+GoodCommentRate # 
+Comment_MatchDescrip # 
+Comment_MatchDescripRate # 
+Comment_ServiceStatue # 
+Comment_ServiceStatueRate # 
+Comment_ShipSpeed # 
+Comment_ShipSpeedRate # 
+Attribute_BuyProtect # 
+Attribute_GlobalBuy # 
+Attribute_GoldenSale # 
+SearchKeyword # 
+
+
+
+2017-3-8
+TaoBao.PcFlowSearchCollector
+paymentAccount改为paymentAcount
+productPrice为空设置为0
+
+TaoBao.PcFlowSearchCollector
+searchKeyword # 关键词
+productId # 产品编号
+productName # 产品名
+productPrice # 价格
+paymentAccount # 销量
+productType # 类型
+shopName # 店铺名
+userMemberId # 卖家编号
+location # 地址
+productPosition # 位置
+positionType # 位置类型
+pageIndex # 页数
+
+
+2017-3-2
 TaoBao.ShopProductCollector
 针对个别店铺productId重复的现象
 维护一个hashTable以productId为key
@@ -29,6 +400,7 @@ GoodCommentRate为double类型去掉%
 2017-2-24
 TaoBao.JiYouJiaCollector
 店铺采集不全问题修复
+
 
 2017-2-22
 TaoBao.ShopProductCollector
@@ -64,7 +436,7 @@ SearchPageRank #
 
 采集店铺商品的交易数据
 AliExpress.ProductTransactionData
-keyword:shpId
+keyword:shopId
 输出
 nameVipLevel # 买家名
 productName # 产品名
